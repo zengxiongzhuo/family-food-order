@@ -27,7 +27,7 @@ export function DishGrid({ dishes, categories }: DishGridProps) {
       {filteredDishes.length === 0 ? (
         <div className="py-12 text-center text-gray-400">
           <span className="text-4xl block mb-2">🍽️</span>
-          <p>No dishes available</p>
+          <p>暂无可点的菜品</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 pb-24">

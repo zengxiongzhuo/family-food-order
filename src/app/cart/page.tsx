@@ -34,10 +34,10 @@ export default function CartPage() {
         router.push("/order-success");
       } else {
         const data = await res.json();
-        toast.error(data.error || "Failed to submit order");
+        toast.error(data.error || "提交订单失败");
       }
     } catch {
-      toast.error("Network error, please try again");
+      toast.error("网络错误，请重试");
     } finally {
       setSubmitting(false);
     }
@@ -50,20 +50,20 @@ export default function CartPage() {
           <button onClick={() => router.back()} className="p-1">
             <ArrowLeft className="h-5 w-5" />
           </button>
-          <h1 className="text-lg font-bold text-gray-900">Cart</h1>
-          <span className="text-sm text-gray-500">({totalItems} items)</span>
+          <h1 className="text-lg font-bold text-gray-900">购物车</h1>
+          <span className="text-sm text-gray-500">({totalItems} 道菜)</span>
         </div>
       </header>
 
       {items.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-gray-400">
           <ShoppingCart className="h-12 w-12 mb-3" />
-          <p className="text-sm">Your cart is empty</p>
+          <p className="text-sm">购物车是空的</p>
           <button
             onClick={() => router.push("/")}
             className="mt-4 text-sm text-orange-500 hover:text-orange-600"
           >
-            Browse menu
+            去点菜
           </button>
         </div>
       ) : (
@@ -76,14 +76,14 @@ export default function CartPage() {
 
           <div className="mt-4">
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Special Requests
+              特殊要求
             </label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-              placeholder="Any special requests or dietary notes..."
+              placeholder="口味偏好、忌口等备注..."
             />
           </div>
 
@@ -93,7 +93,7 @@ export default function CartPage() {
               disabled={submitting}
               className="w-full rounded-lg bg-orange-500 py-3 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50 transition-colors active:scale-[0.98]"
             >
-              {submitting ? "Submitting..." : `Submit Order (${totalItems} items)`}
+              {submitting ? "提交中..." : `提交订单（共 ${totalItems} 道）`}
             </button>
           </div>
           <div className="h-20" /> {/* spacer for fixed button */}

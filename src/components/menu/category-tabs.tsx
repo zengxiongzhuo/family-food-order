@@ -21,7 +21,7 @@ export function CategoryTabs({ categories, activeId, onSelect }: CategoryTabsPro
               : "bg-gray-100 text-gray-700 hover:bg-gray-200"
           )}
         >
-          All
+          全部
         </button>
         {categories.map((cat) => (
           <button

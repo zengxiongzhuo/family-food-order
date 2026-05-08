@@ -10,28 +10,28 @@ export default function AdminLayout({
     <div className="flex-1 flex flex-col">
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="text-lg font-bold text-gray-900">Admin</h1>
+          <h1 className="text-lg font-bold text-gray-900">管理后台</h1>
           <nav className="flex items-center gap-1">
             <Link
               href="/admin/categories"
               className="px-3 py-1.5 text-sm rounded-md hover:bg-gray-100 text-gray-700 flex items-center gap-1.5"
             >
               <LayoutGrid className="h-4 w-4" />
-              <span className="hidden sm:inline">Categories</span>
+              <span className="hidden sm:inline">分类</span>
             </Link>
             <Link
               href="/admin/dishes"
               className="px-3 py-1.5 text-sm rounded-md hover:bg-gray-100 text-gray-700 flex items-center gap-1.5"
             >
               <UtensilsCrossed className="h-4 w-4" />
-              <span className="hidden sm:inline">Dishes</span>
+              <span className="hidden sm:inline">菜品</span>
             </Link>
             <Link
               href="/admin/orders"
               className="px-3 py-1.5 text-sm rounded-md hover:bg-gray-100 text-gray-700 flex items-center gap-1.5"
             >
               <ClipboardList className="h-4 w-4" />
-              <span className="hidden sm:inline">Orders</span>
+              <span className="hidden sm:inline">订单</span>
             </Link>
             <Link
               href="/"

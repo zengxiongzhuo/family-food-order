@@ -84,7 +84,7 @@ export function DishForm({ categories, initialData }: DishFormProps) {
         router.refresh();
       } else {
         const data = await res.json();
-        alert(data.error || "Failed to save dish");
+        alert(data.error || "保存失败");
       }
     } finally {
       setLoading(false);
@@ -95,7 +95,7 @@ export function DishForm({ categories, initialData }: DishFormProps) {
     <form onSubmit={handleSubmit} className="space-y-5 max-w-lg">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Name *
+          菜名 *
         </label>
         <input
           type="text"
@@ -103,13 +103,13 @@ export function DishForm({ categories, initialData }: DishFormProps) {
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-          placeholder="Dish name"
+          placeholder="菜品名称"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Category *
+          分类 *
         </label>
         <select
           required
@@ -117,7 +117,7 @@ export function DishForm({ categories, initialData }: DishFormProps) {
           onChange={(e) => setForm({ ...form, categoryId: e.target.value })}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
         >
-          <option value="">Select category</option>
+          <option value="">选择分类</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name}
@@ -128,7 +128,7 @@ export function DishForm({ categories, initialData }: DishFormProps) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Image
+          图片
         </label>
         <ImageUpload
           value={form.imageUrl}
@@ -138,20 +138,20 @@ export function DishForm({ categories, initialData }: DishFormProps) {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Description
+          描述
         </label>
         <textarea
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           rows={2}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-          placeholder="Flavor description, tips, etc."
+          placeholder="口味描述、小贴士等"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Ingredients * <span className="text-gray-400 font-normal">(comma separated)</span>
+          食材 * <span className="text-gray-400 font-normal">（逗号分隔）</span>
         </label>
         <textarea
           required
@@ -159,20 +159,20 @@ export function DishForm({ categories, initialData }: DishFormProps) {
           onChange={(e) => setForm({ ...form, ingredients: e.target.value })}
           rows={2}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-          placeholder="e.g. pork belly 500g, soy sauce, rock sugar, star anise"
+          placeholder="例如：五花肉500g，生抽，冰糖，八角"
         />
       </div>
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Cooking Method
+          做法
         </label>
         <textarea
           value={form.cookingMethod}
           onChange={(e) => setForm({ ...form, cookingMethod: e.target.value })}
           rows={4}
           className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
-          placeholder="Step-by-step cooking instructions..."
+          placeholder="详细烹饪步骤..."
         />
       </div>
 
@@ -185,7 +185,7 @@ export function DishForm({ categories, initialData }: DishFormProps) {
           className="h-4 w-4 rounded border-gray-300 text-orange-500 focus:ring-orange-500"
         />
         <label htmlFor="isAvailable" className="text-sm text-gray-700">
-          Available for ordering
+          可供点菜
         </label>
       </div>
 
@@ -195,14 +195,14 @@ export function DishForm({ categories, initialData }: DishFormProps) {
           disabled={loading}
           className="rounded-lg bg-orange-500 px-6 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50 transition-colors"
         >
-          {loading ? "Saving..." : initialData?.id ? "Update" : "Create"}
+          {loading ? "保存中..." : initialData?.id ? "更新" : "创建"}
         </button>
         <button
           type="button"
           onClick={() => router.back()}
           className="rounded-lg border border-gray-300 px-6 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         >
-          Cancel
+          取消
         </button>
       </div>
     </form>

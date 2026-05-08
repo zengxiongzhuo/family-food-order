@@ -64,7 +64,7 @@ export function CategoryForm({ categories: initialCategories }: CategoryFormProp
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Are you sure?")) return;
+    if (!confirm("确定删除吗？")) return;
     setLoading(true);
     try {
       const res = await fetch(`/api/categories/${id}`, { method: "DELETE" });
@@ -73,7 +73,7 @@ export function CategoryForm({ categories: initialCategories }: CategoryFormProp
         router.refresh();
       } else {
         const data = await res.json();
-        alert(data.error || "Failed to delete");
+        alert(data.error || "删除失败");
       }
     } finally {
       setLoading(false);
@@ -87,7 +87,7 @@ export function CategoryForm({ categories: initialCategories }: CategoryFormProp
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="New category name"
+          placeholder="新分类名称"
           className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
         />
         <button
@@ -96,13 +96,13 @@ export function CategoryForm({ categories: initialCategories }: CategoryFormProp
           className="flex items-center gap-1 rounded-lg bg-orange-500 px-4 py-2 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50 transition-colors"
         >
           <Plus className="h-4 w-4" />
-          Add
+          添加
         </button>
       </form>
 
       <div className="divide-y divide-gray-100 rounded-lg border border-gray-200">
         {categories.length === 0 ? (
-          <p className="p-4 text-center text-gray-400 text-sm">No categories yet</p>
+          <p className="p-4 text-center text-gray-400 text-sm">暂无分类</p>
         ) : (
           categories.map((cat) => (
             <div key={cat.id} className="flex items-center gap-3 p-3">
@@ -123,13 +123,13 @@ export function CategoryForm({ categories: initialCategories }: CategoryFormProp
                     onClick={() => handleUpdate(cat.id)}
                     className="text-sm text-orange-600 hover:text-orange-700"
                   >
-                    Save
+                    保存
                   </button>
                   <button
                     onClick={() => setEditingId(null)}
                     className="text-sm text-gray-500 hover:text-gray-700"
                   >
-                    Cancel
+                    取消
                   </button>
                 </>
               ) : (

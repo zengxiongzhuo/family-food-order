@@ -84,7 +84,7 @@ export function DishDetail({ dish }: DishDetailProps) {
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold text-gray-700 mb-2">Ingredients</h2>
+          <h2 className="text-sm font-semibold text-gray-700 mb-2">所需食材</h2>
           <div className="flex flex-wrap gap-2">
             {ingredients.map((ing, i) => (
               <span
@@ -100,7 +100,7 @@ export function DishDetail({ dish }: DishDetailProps) {
         {dish.cookingMethod && (
           <div>
             <h2 className="text-sm font-semibold text-gray-700 mb-2">
-              Cooking Method
+              做法
             </h2>
             <p className="text-sm text-gray-600 whitespace-pre-line leading-relaxed">
               {dish.cookingMethod}
@@ -128,7 +128,7 @@ export function DishDetail({ dish }: DishDetailProps) {
             onClick={handleAdd}
             className="flex-1 rounded-lg bg-orange-500 py-2.5 text-sm font-medium text-white hover:bg-orange-600 transition-colors active:scale-[0.98]"
           >
-            Add to Cart
+            加入购物车
           </button>
         </div>
       </div>

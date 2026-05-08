@@ -29,7 +29,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
         onChange(url);
       } else {
         const data = await res.json();
-        alert(data.error || "Upload failed");
+        alert(data.error || "上传失败");
       }
     } finally {
       setUploading(false);
@@ -47,7 +47,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
         <div className="relative inline-block">
           <Image
             src={value}
-            alt="Dish image"
+            alt="菜品图片"
             width={200}
             height={150}
             className="rounded-lg object-cover"
@@ -69,9 +69,9 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
         >
           <Upload className="h-6 w-6 text-gray-400 mb-1" />
           <span className="text-sm text-gray-500">
-            {uploading ? "Uploading..." : "Click to upload image"}
+            {uploading ? "上传中..." : "点击上传图片"}
           </span>
-          <span className="text-xs text-gray-400 mt-0.5">JPG, PNG, WebP (max 5MB)</span>
+          <span className="text-xs text-gray-400 mt-0.5">JPG, PNG, WebP（最大5MB）</span>
         </button>
       )}
       <input

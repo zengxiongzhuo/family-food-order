@@ -19,7 +19,7 @@ export default async function EditDishPage({
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Edit Dish</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">编辑菜品</h2>
       <DishForm
         categories={categories}
         initialData={{

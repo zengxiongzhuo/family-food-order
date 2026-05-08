@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Family Food Order",
-  description: "Home food ordering system for the family",
+  title: "家庭点菜系统",
+  description: "家庭内部点菜下单系统",
 };
 
 export default function RootLayout({

@@ -2,6 +2,12 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+const STATUS_MAP: Record<string, string> = {
+  PENDING: "待处理",
+  EMAIL_SENT: "已通知",
+  COMPLETED: "已完成",
+};
+
 export default async function OrdersPage() {
   const orders = await prisma.order.findMany({
     include: {
@@ -12,9 +18,9 @@ export default async function OrdersPage() {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Order History</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">订单记录</h2>
       {orders.length === 0 ? (
-        <p className="text-center text-gray-400 py-8">No orders yet</p>
+        <p className="text-center text-gray-400 py-8">暂无订单</p>
       ) : (
         <div className="space-y-3">
           {orders.map((order) => (
@@ -37,7 +43,7 @@ export default async function OrdersPage() {
                       : "bg-yellow-100 text-yellow-700"
                   }`}
                 >
-                  {order.status}
+                  {STATUS_MAP[order.status] || order.status}
                 </span>
               </div>
               <ul className="space-y-1 mb-2">
@@ -49,11 +55,11 @@ export default async function OrdersPage() {
               </ul>
               {order.notes && (
                 <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
-                  Notes: {order.notes}
+                  备注：{order.notes}
                 </p>
               )}
               <p className="text-xs text-gray-400 mt-2">
-                Total: {order.totalItems} items
+                共 {order.totalItems} 道菜
               </p>
             </div>
           ))}

@@ -10,7 +10,7 @@ export default async function NewDishPage() {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Add New Dish</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">添加新菜品</h2>
       <DishForm categories={categories} />
     </div>
   );

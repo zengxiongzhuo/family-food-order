@@ -26,10 +26,10 @@ export default function AdminLoginPage() {
         router.push("/admin");
         router.refresh();
       } else {
-        setError("Invalid password");
+        setError("密码错误");
       }
     } catch {
-      setError("Network error");
+      setError("网络错误");
     } finally {
       setLoading(false);
     }
@@ -42,8 +42,8 @@ export default function AdminLoginPage() {
           <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-600 mb-3">
             <Lock className="h-6 w-6" />
           </div>
-          <h1 className="text-xl font-bold text-gray-900">Admin Login</h1>
-          <p className="text-sm text-gray-500 mt-1">Enter password to manage dishes</p>
+          <h1 className="text-xl font-bold text-gray-900">管理员登录</h1>
+          <p className="text-sm text-gray-500 mt-1">输入密码进入管理后台</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -51,7 +51,7 @@ export default function AdminLoginPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
+            placeholder="请输入密码"
             className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
             autoFocus
           />
@@ -61,7 +61,7 @@ export default function AdminLoginPage() {
             disabled={loading || !password}
             className="w-full rounded-lg bg-orange-500 py-2.5 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50 transition-colors"
           >
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "登录中..." : "登录"}
           </button>
         </form>
       </div>

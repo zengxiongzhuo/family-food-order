@@ -30,7 +30,7 @@ export function DishListClient({ dishes: initialDishes }: { dishes: Dish[] }) {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Delete this dish?")) return;
+    if (!confirm("确定删除这道菜吗？")) return;
     const res = await fetch(`/api/dishes/${id}`, { method: "DELETE" });
     if (res.ok) {
       setDishes(dishes.filter((d) => d.id !== id));
@@ -39,7 +39,7 @@ export function DishListClient({ dishes: initialDishes }: { dishes: Dish[] }) {
   };
 
   if (dishes.length === 0) {
-    return <p className="text-center text-gray-400 py-8">No dishes yet. Add your first dish!</p>;
+    return <p className="text-center text-gray-400 py-8">暂无菜品，添加第一道菜吧！</p>;
   }
 
   return (
@@ -66,7 +66,7 @@ export function DishListClient({ dishes: initialDishes }: { dishes: Dish[] }) {
               className={`p-1.5 rounded transition-colors ${
                 dish.isAvailable ? "text-green-600 hover:bg-green-50" : "text-gray-400 hover:bg-gray-50"
               }`}
-              title={dish.isAvailable ? "Available" : "Hidden"}
+              title={dish.isAvailable ? "已上架" : "已隐藏"}
             >
               {dish.isAvailable ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
             </button>

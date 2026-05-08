@@ -12,14 +12,14 @@ export default async function AdminDashboard() {
   ]);
 
   const stats = [
-    { label: "Categories", count: categoryCount, href: "/admin/categories", icon: LayoutGrid },
-    { label: "Dishes", count: dishCount, href: "/admin/dishes", icon: UtensilsCrossed },
-    { label: "Orders", count: orderCount, href: "/admin/orders", icon: ClipboardList },
+    { label: "分类", count: categoryCount, href: "/admin/categories", icon: LayoutGrid },
+    { label: "菜品", count: dishCount, href: "/admin/dishes", icon: UtensilsCrossed },
+    { label: "订单", count: orderCount, href: "/admin/orders", icon: ClipboardList },
   ];
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Dashboard</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">管理面板</h2>
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {stats.map((stat) => (
           <Link

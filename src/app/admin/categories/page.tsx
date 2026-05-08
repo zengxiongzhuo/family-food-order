@@ -10,7 +10,7 @@ export default async function CategoriesPage() {
 
   return (
     <div>
-      <h2 className="text-xl font-bold text-gray-900 mb-6">Category Management</h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">分类管理</h2>
       <CategoryForm categories={categories} />
     </div>
   );
