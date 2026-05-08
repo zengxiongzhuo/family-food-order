@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  sortOrder Int      @default(0)
+  dishes    Dish[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Dish {
+  id            String      @id @default(cuid())
+  name          String
+  description   String?
+  imageUrl      String?
+  ingredients   String // JSON array string: ["ingredient1", "ingredient2"]
+  cookingMethod String?
+  isAvailable   Boolean     @default(true)
+  sortOrder     Int         @default(0)
+  categoryId    String
+  category      Category    @relation(fields: [categoryId], references: [id])
+  orderItems    OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  notes       String?
+  status      String      @default("PENDING") // PENDING | EMAIL_SENT | COMPLETED
+  totalItems  Int
+  items       OrderItem[]
+  emailSentAt DateTime?
+  createdAt   DateTime    @default(now())
+}
+
+model OrderItem {
+  id          String @id @default(cuid())
+  orderId     String
+  order       Order  @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  dishId      String
+  dish        Dish   @relation(fields: [dishId], references: [id])
+  dishName    String
+  quantity    Int
+  ingredients String // Snapshot of ingredients at order time
+}
