@@ -36,14 +36,14 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <main className="flex-1 flex items-center justify-center p-6">
+    <main className="flex-1 flex items-center justify-center p-6 bg-[var(--background)]">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <div className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-orange-100 text-orange-600 mb-3">
-            <Lock className="h-6 w-6" />
+          <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 text-white mb-4 shadow-lg shadow-orange-200">
+            <Lock className="h-7 w-7" />
           </div>
           <h1 className="text-xl font-bold text-gray-900">管理员登录</h1>
-          <p className="text-sm text-gray-500 mt-1">输入密码进入管理后台</p>
+          <p className="text-sm text-gray-400 mt-1">输入密码进入管理后台</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -52,14 +52,16 @@ export default function AdminLoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="请输入密码"
-            className="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500"
+            className="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm focus:border-[var(--primary)] focus:outline-none focus:ring-2 focus:ring-orange-100 transition-all"
             autoFocus
           />
-          {error && <p className="text-sm text-red-500">{error}</p>}
+          {error && (
+            <p className="text-sm text-red-500 bg-red-50 px-3 py-2 rounded-lg">{error}</p>
+          )}
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full rounded-lg bg-orange-500 py-2.5 text-sm font-medium text-white hover:bg-orange-600 disabled:opacity-50 transition-colors"
+            className="w-full rounded-xl bg-[var(--primary)] py-3 text-sm font-bold text-white hover:bg-[var(--primary-dark)] disabled:opacity-50 transition-all shadow-lg shadow-orange-200/50"
           >
             {loading ? "登录中..." : "登录"}
           </button>

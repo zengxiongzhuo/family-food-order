@@ -25,12 +25,13 @@ export function DishGrid({ dishes, categories }: DishGridProps) {
         onSelect={setActiveCategory}
       />
       {filteredDishes.length === 0 ? (
-        <div className="py-12 text-center text-gray-400">
-          <span className="text-4xl block mb-2">🍽️</span>
-          <p>暂无可点的菜品</p>
+        <div className="py-16 text-center text-gray-400">
+          <span className="text-5xl block mb-3">🍽️</span>
+          <p className="text-sm">暂无可点的菜品</p>
+          <p className="text-xs mt-1 text-gray-300">管理员可在后台添加菜品</p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 px-4 pb-24">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 px-4">
           {filteredDishes.map((dish) => (
             <DishCard key={dish.id} dish={dish} />
           ))}

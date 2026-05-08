@@ -36,6 +36,7 @@ export async function POST(request: Request) {
     }
 
     const blob = await put(`dishes/${Date.now()}-${file.name}`, file, {
+      access: "public",
       token,
     });
 

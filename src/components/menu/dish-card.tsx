@@ -27,43 +27,37 @@ export function DishCard({ dish }: DishCardProps) {
   return (
     <Link
       href={`/dish/${dish.id}`}
-      className="block bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+      className="card-hover block bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-50"
     >
-      <div className="relative aspect-[4/3] bg-gray-100">
+      <div className="relative aspect-square bg-gradient-to-br from-orange-50 to-amber-50">
         {dish.imageUrl ? (
           <Image
             src={dish.imageUrl}
             alt={dish.name}
             fill
             className="object-cover"
-            sizes="(max-width: 768px) 100vw, 50vw"
+            sizes="(max-width: 768px) 50vw, 25vw"
           />
         ) : (
-          <div className="flex items-center justify-center h-full text-gray-400">
+          <div className="flex items-center justify-center h-full">
             <span className="text-4xl">🍽️</span>
           </div>
         )}
+        {/* 加入购物车按钮 */}
+        <button
+          onClick={handleAdd}
+          className="absolute bottom-2 right-2 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--primary)] text-white shadow-lg shadow-orange-300/40 hover:bg-[var(--primary-dark)] transition-all active:scale-90"
+        >
+          <Plus className="h-4 w-4" strokeWidth={3} />
+        </button>
       </div>
-      <div className="p-3">
-        <div className="flex items-start justify-between gap-2">
-          <div className="min-w-0 flex-1">
-            <h3 className="font-medium text-gray-900 truncate">{dish.name}</h3>
-            <p className="text-xs text-gray-500 mt-0.5">
-              {dish.category.name}
-            </p>
-            {dish.description && (
-              <p className="text-xs text-gray-400 mt-1 line-clamp-1">
-                {dish.description}
-              </p>
-            )}
-          </div>
-          <button
-            onClick={handleAdd}
-            className="flex-shrink-0 flex h-8 w-8 items-center justify-center rounded-full bg-orange-500 text-white hover:bg-orange-600 transition-colors active:scale-95"
-          >
-            <Plus className="h-4 w-4" />
-          </button>
-        </div>
+      <div className="p-2.5">
+        <h3 className="font-semibold text-sm text-gray-800 truncate leading-tight">
+          {dish.name}
+        </h3>
+        <p className="text-[11px] text-gray-400 mt-0.5 truncate">
+          {dish.category.name}
+        </p>
       </div>
     </Link>
   );

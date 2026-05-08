@@ -13,13 +13,13 @@ export function CartItem({ item }: CartItemProps) {
   const { updateQuantity, removeItem } = useCart();
 
   return (
-    <div className="flex items-center gap-3 py-3 border-b border-gray-100 last:border-0">
+    <div className="flex items-center gap-3 px-4 py-3.5">
       <div className="flex-1 min-w-0">
-        <h3 className="font-medium text-gray-900 truncate">{item.name}</h3>
-        <p className="text-xs text-gray-500 mt-0.5 truncate">
+        <h3 className="font-semibold text-sm text-gray-800 truncate">{item.name}</h3>
+        <p className="text-xs text-gray-400 mt-0.5 truncate">
           {(() => {
             try {
-              return (JSON.parse(item.ingredients) as string[]).join(", ");
+              return (JSON.parse(item.ingredients) as string[]).slice(0, 3).join("、");
             } catch {
               return item.ingredients;
             }
@@ -34,7 +34,7 @@ export function CartItem({ item }: CartItemProps) {
       />
       <button
         onClick={() => removeItem(item.dishId)}
-        className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
+        className="p-1.5 text-gray-300 hover:text-red-400 transition-colors"
       >
         <Trash2 className="h-4 w-4" />
       </button>

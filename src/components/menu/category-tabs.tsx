@@ -11,14 +11,14 @@ interface CategoryTabsProps {
 export function CategoryTabs({ categories, activeId, onSelect }: CategoryTabsProps) {
   return (
     <div className="overflow-x-auto scrollbar-hide">
-      <div className="flex gap-2 px-4 py-3 min-w-max">
+      <div className="flex gap-2 px-5 py-4 min-w-max">
         <button
           onClick={() => onSelect(null)}
           className={cn(
-            "px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
+            "px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap shadow-sm",
             activeId === null
-              ? "bg-orange-500 text-white"
-              : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+              ? "bg-[var(--primary)] text-white shadow-md shadow-orange-200"
+              : "bg-white text-gray-600 hover:bg-orange-50 border border-gray-100"
           )}
         >
           全部
@@ -28,10 +28,10 @@ export function CategoryTabs({ categories, activeId, onSelect }: CategoryTabsPro
             key={cat.id}
             onClick={() => onSelect(cat.id)}
             className={cn(
-              "px-4 py-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
+              "px-5 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap shadow-sm",
               activeId === cat.id
-                ? "bg-orange-500 text-white"
-                : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                ? "bg-[var(--primary)] text-white shadow-md shadow-orange-200"
+                : "bg-white text-gray-600 hover:bg-orange-50 border border-gray-100"
             )}
           >
             {cat.name}
