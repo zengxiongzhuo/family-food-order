@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { Upload, X } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 interface ImageUploadProps {
   value: string | null;
@@ -27,10 +28,14 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
       if (res.ok) {
         const { url } = await res.json();
         onChange(url);
+        toast.success("图片上传成功");
       } else {
-        const data = await res.json();
-        alert(data.error || "上传失败");
+        const data = await res.json().catch(() => ({}));
+        toast.error(data.error || `上传失败 (${res.status})`);
       }
+    } catch (err) {
+      console.error("Upload error:", err);
+      toast.error("网络错误，上传失败");
     } finally {
       setUploading(false);
     }

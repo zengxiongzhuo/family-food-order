@@ -3,18 +3,25 @@ import { put } from "@vercel/blob";
 
 export async function POST(request: Request) {
   try {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) {
+      return NextResponse.json(
+        { error: "图片存储未配置，请在 Vercel 中添加 Blob Store" },
+        { status: 500 }
+      );
+    }
+
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
 
     if (!file) {
-      return NextResponse.json({ error: "No file provided" }, { status: 400 });
+      return NextResponse.json({ error: "未选择文件" }, { status: 400 });
     }
 
     // Validate file type
     const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
     if (!allowedTypes.includes(file.type)) {
       return NextResponse.json(
-        { error: "Invalid file type. Allowed: jpg, png, webp" },
+        { error: "不支持的文件格式，仅支持 JPG、PNG、WebP" },
         { status: 400 }
       );
     }
@@ -22,7 +29,7 @@ export async function POST(request: Request) {
     // Validate file size (5MB max)
     if (file.size > 5 * 1024 * 1024) {
       return NextResponse.json(
-        { error: "File too large. Max 5MB" },
+        { error: "文件过大，最大支持 5MB" },
         { status: 400 }
       );
     }
@@ -35,7 +42,7 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Failed to upload file:", error);
     return NextResponse.json(
-      { error: "Failed to upload file" },
+      { error: "上传失败，请检查 Blob 存储配置是否正确" },
       { status: 500 }
     );
   }
