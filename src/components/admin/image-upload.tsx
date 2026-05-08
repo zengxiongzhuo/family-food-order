@@ -10,15 +10,70 @@ interface ImageUploadProps {
   onChange: (url: string | null) => void;
 }
 
+// 客户端图片压缩：将大图压缩到指定最大尺寸
+async function compressImage(file: File, maxSizeKB = 1024): Promise<File> {
+  if (file.size <= maxSizeKB * 1024) return file;
+
+  return new Promise((resolve) => {
+    const img = document.createElement("img");
+    const url = URL.createObjectURL(file);
+
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      const maxDim = 1200;
+      if (width > maxDim || height > maxDim) {
+        const ratio = Math.min(maxDim / width, maxDim / height);
+        width = Math.round(width * ratio);
+        height = Math.round(height * ratio);
+      }
+
+      const canvas = document.createElement("canvas");
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0, width, height);
+
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            resolve(new File([blob], file.name, { type: "image/jpeg" }));
+          } else {
+            resolve(file);
+          }
+        },
+        "image/jpeg",
+        0.8
+      );
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      resolve(file);
+    };
+
+    img.src = url;
+  });
+}
+
 export function ImageUpload({ value, onChange }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleUpload = async (file: File) => {
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowedTypes.includes(file.type)) {
+      toast.error("不支持的文件格式，仅支持 JPG、PNG、WebP");
+      return;
+    }
+
     setUploading(true);
     try {
+      // 自动压缩大于 1MB 的图片
+      const compressed = await compressImage(file, 1024);
+
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append("file", compressed);
 
       const res = await fetch("/api/upload", {
         method: "POST",
@@ -76,7 +131,7 @@ export function ImageUpload({ value, onChange }: ImageUploadProps) {
           <span className="text-sm text-gray-500">
             {uploading ? "上传中..." : "点击上传图片"}
           </span>
-          <span className="text-xs text-gray-400 mt-0.5">JPG, PNG, WebP（最大5MB）</span>
+          <span className="text-xs text-gray-400 mt-0.5">JPG, PNG, WebP（自动压缩）</span>
         </button>
       )}
       <input
