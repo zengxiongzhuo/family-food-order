@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { createOrderSchema } from "@/lib/validators";
-import { sendOrderEmail } from "@/lib/email";
+import { sendOrderNotification } from "@/lib/notify";
 
 export async function GET() {
   try {
@@ -38,7 +38,7 @@ export async function POST(request: Request) {
     for (const item of items) {
       if (!dishMap.has(item.dishId)) {
         return NextResponse.json(
-          { error: `Dish not found: ${item.dishId}` },
+          { error: `菜品不存在: ${item.dishId}` },
           { status: 400 }
         );
       }
@@ -68,8 +68,8 @@ export async function POST(request: Request) {
       },
     });
 
-    // Send email notification
-    const emailSent = await sendOrderEmail({
+    // Send WxPusher notification
+    const notified = await sendOrderNotification({
       items: order.items.map((item) => ({
         dishName: item.dishName,
         quantity: item.quantity,
@@ -79,8 +79,8 @@ export async function POST(request: Request) {
       orderTime: order.createdAt,
     });
 
-    // Update order status if email sent
-    if (emailSent) {
+    // Update order status if notification sent
+    if (notified) {
       await prisma.order.update({
         where: { id: order.id },
         data: { status: "EMAIL_SENT", emailSentAt: new Date() },
@@ -88,16 +88,16 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { ...order, status: emailSent ? "EMAIL_SENT" : "PENDING" },
+      { ...order, status: notified ? "EMAIL_SENT" : "PENDING" },
       { status: 201 }
     );
   } catch (error: unknown) {
     if (error && typeof error === "object" && "name" in error && error.name === "ZodError") {
-      return NextResponse.json({ error: "Invalid input" }, { status: 400 });
+      return NextResponse.json({ error: "输入数据无效" }, { status: 400 });
     }
     console.error("Failed to create order:", error);
     return NextResponse.json(
-      { error: "Failed to create order" },
+      { error: "创建订单失败" },
       { status: 500 }
     );
   }
